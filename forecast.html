@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>WEAR Forecast</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/bower_components/bootstrap-horizon/bootstrap-horizon.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/forecast.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda+One&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/jsbn.js"></script>
+    <script src="./js/jsbn2.js"></script>
+    <script src="./js/sjcl.js"></script>
+    <script src="./js/aws-sdk.min.js"></script>
+    <script src="./js/aws-cognito-sdk.min.js"></script>
+    <script src="./js/amazon-cognito-identity.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand goodfont" href="./index.html" style="color:#00BCD4; font-size:27px;">WEAR Forecast</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link goodfont" href="./index.html">>>MyPage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link goodfont" href="#">>>About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link goodfont" href="#" id="signout">>>SignOut</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link goodfont" href="#" id="name"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="container wrapper">
+            <hr class="colorgraph"><br>
+            <h1 class="goodfont title">WEAR Forecast</h1>
+            <h2 class="goodfont title">~ for 5 days in <span id="city"></span>~</h2>
+            <div class="horizontal_scroll_wrap">
+                <ul class="scroll_lst">
+                    <li class="scroll_item">
+                        <a href="" class="scroll_item_inr">
+                            <div class="scroll_item_thum">
+                                <img src="image/loading.gif" id="00" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="01" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="02" class="alignnone size-medium wp-image-986" />
+                            <div class="scroll_item_info">
+                                <h4 class="scroll_item_ttl" id="view_time0"></h4>
+                                <div class="weather-info">
+                                    <img src="image/loading.gif" id="0i" class="weather-image"/>
+                                    <span class="weather" id="wea0"></span>
+                                    <span class="temperature" id="tmp0"></span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="scroll_item">
+                        <a href="" class="scroll_item_inr">
+                            <div class="scroll_item_thum">
+                                <img src="image/loading.gif" id="10" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="11" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="12" class="alignnone size-medium wp-image-986" />
+                            </div>
+                            <div class="scroll_item_info">
+                                <h4 class="scroll_item_ttl" id="view_time1"></h4>
+                                <div class="weather-info">
+                                    <img src="image/loading.gif" id="1i" class="weather-image"/>
+                                    <span class="weather" id="wea1"></span>
+                                    <span class="temperature" id="tmp1"></span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="scroll_item">
+                        <a href="" class="scroll_item_inr">
+                            <div class="scroll_item_thum">
+                                <img src="image/loading.gif" id="20" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="21" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="22" class="alignnone size-medium wp-image-986" />
+                            </div>
+                            <div class="scroll_item_info">
+                                <h4 class="scroll_item_ttl" id="view_time2"></h4>
+                                <div class="weather-info">
+                                    <img src="image/loading.gif" id="2i" class="weather-image"/>
+                                    <span class="weather" id="wea2"></span>
+                                    <span class="temperature" id="tmp2"></span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="scroll_item">
+                        <a href="" class="scroll_item_inr">
+                            <div class="scroll_item_thum">
+                                <img src="image/loading.gif" id="30" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="31" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="32" class="alignnone size-medium wp-image-986" />
+                            </div>
+                            <div class="scroll_item_info">
+                                <h4 class="scroll_item_ttl" id="view_time3"></h4>
+                                <div class="weather-info">
+                                    <img src="image/loading.gif" id="3i" class="weather-image"/>
+                                    <span class="weather" id="wea3"></span>
+                                    <span class="temperature" id="tmp3"></span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="scroll_item">
+                        <a href="" class="scroll_item_inr">
+                            <div class="scroll_item_thum">
+                                <img src="image/loading.gif" id="40" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="41" class="alignnone size-medium wp-image-986" /><br>
+                                <img src="image/loading.gif" id="42" class="alignnone size-medium wp-image-986" />
+                            </div>
+                            <div class="scroll_item_info">
+                                <h4 class="scroll_item_ttl" id="view_time4"></h4>
+                                <div class="weather-info">
+                                    <img src="image/loading.gif" id="4i" class="weather-image"/>
+                                    <span class="weather" id="wea4"></span>
+                                    <span class="temperature" id="tmp4"></span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <p id="compUpload"></p>
+    <button id="signout" hidden>Sign Out</button>
+    <script src="./js/md5.js" defer></script>
+    <script src="./js/forecast.js" defer></script>
+    <footer>
+        <section id="footer">
+            <div class="container">
+                <div class="row text-center text-xs-center text-sm-left text-md-left">
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <h5 class="goodfont">Quick links</h5>
+                        <ul class="list-unstyled quick-links">
+                            <li class="goodfont"><a href="./index.html">>>MyPage</a></li>
+                            <li class="goodfont"><a href="">>>About</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                        <ul class="list-unstyled list-inline social text-center">
+                            <li class="list-inline-item"><a href=""><i class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href=""><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href=""><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href=""><i class="fa fa-google-plus"></i></a></li>
+                            <li class="list-inline-item"><a href="" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
